@@ -1,9 +1,11 @@
+import { forwardRef } from 'react';
 import { NavLink as RouterLink, NavLinkProps } from 'react-router-dom';
 import { Link, LinkProps } from '@chakra-ui/react';
 
-function NavLink({ children, ...props }: NavLinkProps & LinkProps) {
+const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps & LinkProps>(({ children, ...props }, ref) => {
   return (
     <Link
+      ref={ref}
       as={RouterLink}
       fontWeight="bold"
       fontSize={['md', 'xl']}
@@ -14,6 +16,6 @@ function NavLink({ children, ...props }: NavLinkProps & LinkProps) {
       {children}
     </Link>
   );
-}
+});
 
 export default NavLink;
