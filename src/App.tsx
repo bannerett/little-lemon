@@ -3,9 +3,11 @@ import UIProvider from 'providers/UIProvider';
 
 function App() {
   return (
-    <UIProvider>
-      <Router />
-    </UIProvider>
+    <div className="app" data-testid="app">
+      <UIProvider>
+        <Router />
+      </UIProvider>
+    </div>
   );
 }
 
