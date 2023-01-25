@@ -1,7 +1,12 @@
+import Router from 'router/Router';
+import UIProvider from 'providers/UIProvider';
+
 function App() {
   return (
-    <div className="App" data-testid="app">
-      Little Lemon App
+    <div className="app" data-testid="app">
+      <UIProvider>
+        <Router />
+      </UIProvider>
     </div>
   );
 }
