@@ -10,21 +10,23 @@ const DishCard = memo<SpecialDish>(
       <Card rounded={16} overflow="hidden">
         <Image src={imgSrc} objectFit="cover" h={186} />
         <CardHeader>
-          <HStack>
-            <Heading>{heading}</Heading>
-            <Box>{price}</Box>
+          <HStack justifyContent="space-between">
+            <Heading fontSize={24} fontWeight={500} noOfLines={1}>
+              {heading}
+            </Heading>
+            <Box>{price.toLocaleString(window.navigator.language, { style: 'currency', currency: 'USD' })}</Box>
           </HStack>
         </CardHeader>
 
-        <CardBody>{description}</CardBody>
+        <CardBody lineHeight={1.125}>{description}</CardBody>
 
         <CardFooter>
           {!count ? (
-            <Button variant="link" data-id={id} onClick={onAdd} rightIcon={icon}>
+            <Button variant="link" data-id={id} rightIcon={icon} onClick={onAdd} fontWeight={700}>
               {label}
             </Button>
           ) : (
-            <Flex alignItems="center" justifyContent="center">
+            <Flex alignItems="center" justifyContent="center" fontWeight={700} lineHeight={1.125}>
               <Button variant="link" data-id={id} onClick={onRemove}>
                 <Minus />
               </Button>

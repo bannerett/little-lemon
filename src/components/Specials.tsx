@@ -1,11 +1,12 @@
 import { MouseEventHandler, useCallback, useState } from 'react';
 import { Box, Button, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Bicycle } from 'phosphor-react';
 import DishCard from 'components/DishCard';
 import { contentStyles } from 'constants/contentStyles';
 import { SpecialDish } from 'types/SpecialDish';
 import greekSalad from 'assets/img/specials/greek-salad.jpg';
 import bruchetta from 'assets/img/specials/bruchetta.jpg';
-import { Bicycle } from 'phosphor-react';
+import lemonDessert from 'assets/img/specials/lemon-dessert.jpg';
 
 const specials: SpecialDish[] = [
   {
@@ -14,8 +15,8 @@ const specials: SpecialDish[] = [
     imgSrc: greekSalad,
     heading: 'Greek Salad',
     price: 12.99,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    icon: <Bicycle />,
+    description:
+      'The famous greek salad of crispy lettuce, peppers, olives and our Chicago style feta cheese, garnished with crunchy garlic and rosemary croutons. ',
     label: 'Order a delivery',
   },
   {
@@ -23,19 +24,19 @@ const specials: SpecialDish[] = [
     name: 'bruchetta',
     imgSrc: bruchetta,
     heading: 'Bruchetta',
-    price: 12.99,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    icon: <Bicycle />,
+    price: 5.99,
+    description:
+      'Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil. ',
     label: 'Order a delivery',
   },
   {
     id: 'lemon-dessert',
     name: 'lemon-dessert',
-    imgSrc: bruchetta,
+    imgSrc: lemonDessert,
     heading: 'Lemon Dessert',
-    price: 12.99,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    icon: <Bicycle />,
+    price: 5.0,
+    description:
+      'This comes straight from grandma’s recipe book, every last ingredient has been sourced and is as authentic as can be imagined.',
     label: 'Order a delivery',
   },
 ];
@@ -92,6 +93,7 @@ function Specials() {
             count={order?.[special.id]}
             onAdd={handleAdd}
             onRemove={handleRemove}
+            icon={<Bicycle size={20} />}
           />
         ))}
       </SimpleGrid>
