@@ -32,6 +32,25 @@ const theme = extendTheme({
     '5xl': '48px',
     '6xl': '64px',
   },
+  components: {
+    Button: {
+      baseStyle: {
+        fontSize: 18,
+        fontWeight: 400,
+        lineHeight: 1.25,
+        textTransform: 'capitalize',
+      },
+      defaultProps: {
+        fontSize: 18,
+      },
+    },
+    Text: {
+      baseStyle: {
+        lineHeight: 1.25,
+        fontSize: 'xl',
+      },
+    },
+  },
 });
 
 function UIProvider({ children }: { children: ReactNode }) {

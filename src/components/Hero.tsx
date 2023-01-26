@@ -1,5 +1,6 @@
-import { Box, Button, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import { Box, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import { contentStyles } from 'constants/contentStyles';
+import NavLink from 'components/Navbar/NavLink';
 import heroLogo from 'assets/img/hero-thumb.jpg';
 
 function Hero() {
@@ -20,9 +21,22 @@ function Hero() {
               We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
             </Text>
 
-            <Button color="primary.green" backgroundColor="primary.yellow" borderRadius={16}>
+            <NavLink
+              display="block"
+              variant="button"
+              to="/reservations"
+              color="primary.green"
+              backgroundColor="primary.yellow"
+              borderRadius={16}
+              fontSize={18}
+              fontWeight={400}
+              textAlign="center"
+              py={2.5}
+              px={10}
+              w="fit-content"
+            >
               Reserve a table
-            </Button>
+            </NavLink>
           </Box>
         </Box>
 
