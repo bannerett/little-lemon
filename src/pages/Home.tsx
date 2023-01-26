@@ -4,11 +4,7 @@ import Specials from 'components/Specials';
 
 function Home() {
   return (
-    <ScaleFade
-      initial={{ position: 'absolute', left: '-100%', width: '100%' }}
-      animate={{ left: 0 }}
-      exit={{ left: '200%' }}
-    >
+    <ScaleFade initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <Hero />
       <Specials />
     </ScaleFade>
