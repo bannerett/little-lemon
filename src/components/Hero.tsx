@@ -4,7 +4,7 @@ import heroLogo from 'assets/img/hero-thumb.jpg';
 
 function Hero() {
   return (
-    <Box as="section" id="hero" backgroundColor="primary.green" pt={8} pb={5} mb={24}>
+    <Box as="section" id="hero" backgroundColor="primary.green" pt={8} pb={6} mb={[24, 32]}>
       <Stack direction={['column', 'row']} spacing={4} {...contentStyles}>
         {/* <Box w="100%" pl={[6, 8]}> */}
         <Box w="100%">
@@ -16,7 +16,7 @@ function Hero() {
               Chicago
             </Heading>
 
-            <Text color="white" fontSize="xl" lineHeight={1.25} fontWeight="semibold" mb={3}>
+            <Text color="white" fontSize="xl" lineHeight={1.25} fontWeight={600} mb={2}>
               We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
             </Text>
 

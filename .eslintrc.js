@@ -28,7 +28,7 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 0,
     'comma-dangle': [2, { arrays: 'always-multiline', objects: 'always-multiline', imports: 'always-multiline' }],
     'jsx-quotes': [1, 'prefer-double'],
-    'max-len': [2, 120],
+    'max-len': [2, 120, { ignoreComments: true, ignoreUrls: true, ignoreStrings: true, ignoreTemplateLiterals: true }],
     'multiline-ternary': 0,
     'react-hooks/exhaustive-deps': 1,
     'react-hooks/rules-of-hooks': 2,
