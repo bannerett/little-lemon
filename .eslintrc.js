@@ -29,6 +29,7 @@ module.exports = {
     'comma-dangle': [2, { arrays: 'always-multiline', objects: 'always-multiline', imports: 'always-multiline' }],
     'jsx-quotes': [1, 'prefer-double'],
     'max-len': [2, 120],
+    'multiline-ternary': 0,
     'react-hooks/exhaustive-deps': 1,
     'react-hooks/rules-of-hooks': 2,
     'react/function-component-definition': [
@@ -38,6 +39,7 @@ module.exports = {
     'react/jsx-curly-brace-presence': [1, 'never'],
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/display-name': 0,
+    'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,
     semi: [2, 'always'],
   },

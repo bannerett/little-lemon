@@ -16,7 +16,7 @@ interface NavbarMDProps {
 
 function NavbarMd({ links }: NavbarMDProps) {
   return (
-    <HStack spacing={4} maxW={900} mx="auto" display={['none', 'flex']}>
+    <HStack spacing={4} maxW={900} mx="auto" display={['none', 'flex']} px={{ sm: 4, md: 0, lg: 4 }}>
       <NavLink to="/" mr={8} maxW={200}>
         <Image src={brandLogo} />
       </NavLink>

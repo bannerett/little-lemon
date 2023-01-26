@@ -17,7 +17,7 @@ interface NavbarSMProps {
 
 function NavbarSm({ links }: NavbarSMProps) {
   return (
-    <Flex display={['flex', 'none']} direction="row" justifyContent="space-between" alignItems="center">
+    <Flex display={['flex', 'none']} direction="row" justifyContent="space-between" alignItems="center" px={2}>
       <Menu>
         <MenuButton as={IconButton} aria-label="Menu" icon={<List size={32} />} variant="link" />
         <MenuList>{renderMenuLinks(links)}</MenuList>
