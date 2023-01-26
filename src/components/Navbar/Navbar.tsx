@@ -10,7 +10,7 @@ const navLinks: HeaderLink[] = [
 
 function Navbar() {
   return (
-    <Box as="header" height="100%" py={[4, 8]}>
+    <Box as="header" height="100%" py={[4, 8]} px={{ md: 8 }}>
       <NavbarMD links={navLinks} />
       <NavbarSM links={navLinks} />
     </Box>

@@ -4,7 +4,7 @@ import Navbar from 'components/Navbar/Navbar';
 
 function Root() {
   return (
-    <Container maxW={1440} px={[4, 8, 70]}>
+    <Container maxW={1440} px={0}>
       <Navbar />
 
       <Outlet />

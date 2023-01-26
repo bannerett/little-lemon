@@ -6,9 +6,9 @@ module.exports = {
   arrowParens: 'avoid',
   overrides: [
     {
-      files: ['*.html', 'legacy/**/*.js'],
+      files: ['*.html'],
       options: {
-        tabWidth: 4,
+        tabWidth: 2,
         parser: 'html',
       },
     },
