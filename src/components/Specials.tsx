@@ -1,7 +1,8 @@
 import { MouseEventHandler, useCallback, useState } from 'react';
-import { Box, Button, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
 import { Bicycle } from 'phosphor-react';
 import DishCard from 'components/DishCard';
+import NavLink from 'components/Navbar/NavLink';
 import { contentStyles } from 'constants/contentStyles';
 import { SpecialDish } from 'types/SpecialDish';
 import greekSalad from 'assets/img/specials/greek-salad.jpg';
@@ -75,14 +76,26 @@ function Specials() {
 
   return (
     <Box as="section" id="specials" backgroundColor="white">
-      <Flex {...contentStyles}>
+      <Flex alignItems="center" pb={2} {...contentStyles}>
         <Heading size="3xl" flex={1}>
           This Week&apos;s Specials!
         </Heading>
 
-        <Button color="primary.green" backgroundColor="primary.yellow" borderRadius={16}>
+        <NavLink
+          variant="button"
+          to="/menu"
+          color="primary.green"
+          backgroundColor="primary.yellow"
+          borderRadius={16}
+          fontSize={18}
+          fontWeight={400}
+          textAlign="center"
+          py={2.5}
+          px={10}
+          h={12}
+        >
           Online Menu
-        </Button>
+        </NavLink>
       </Flex>
 
       <SimpleGrid columns={[1, 3]} columnGap={{ md: 4, lg: 8 }} rowGap={4} {...contentStyles}>

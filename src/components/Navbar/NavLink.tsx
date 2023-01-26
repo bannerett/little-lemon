@@ -7,6 +7,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps & LinkProps>(({ child
     <Link
       ref={ref}
       as={RouterLink}
+      display="block"
       fontWeight="bold"
       fontSize={['md', 'xl']}
       color="secondary.dark"
