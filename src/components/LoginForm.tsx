@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/no-unused-vars: 1 */
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -21,7 +20,7 @@ function LoginForm() {
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { getFieldProps, handleSubmit, touched, errors, isSubmitting } = useFormik({
+  const { getFieldProps, handleSubmit, touched, errors, isSubmitting, isValid } = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema,
     onSubmit: async form => {
@@ -79,7 +78,7 @@ function LoginForm() {
             type="submit"
             backgroundColor="primary.yellow"
             color="primary.green"
-            isDisabled={!!Object.values(errors).length}
+            isDisabled={!isValid}
             isLoading={isSubmitting}
             sx={{ px: 10, py: 2.5, fontSize: 18, lineHeight: 1.5 }}
             _hover={{ color: 'primary.yellow', backgroundColor: 'primary.green' }}
