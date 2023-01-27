@@ -16,7 +16,7 @@ function FormInput({ label, type, size, isRequired, isInvalid, errorMessage, ...
       aria-errormessage={errorMessage}
     >
       <FormLabel>{label}</FormLabel>
-      <Input type={type ?? 'text'} size={size ?? 'lg'} maxWidth="100%" {...props} />
+      <Input type={type ?? 'text'} size={size ?? 'lg'} maxWidth="100%" borderRadius={12} {...props} />
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
   );

@@ -1,63 +1,94 @@
-import { BaseSyntheticEvent, useCallback, useRef, useState } from 'react';
+/* eslint @typescript-eslint/no-unused-vars: 1 */
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Button, Card, CardBody, CardFooter, CardHeader, useToast } from '@chakra-ui/react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Button, Card, CardBody, CardFooter, useToast } from '@chakra-ui/react';
+import FormInput from 'components/FormInput';
 import { useAppDispatch } from 'store/store';
-import { selectAuth, setAuth } from 'store/auth/authSlice';
-import FormInput from './FormInput';
+import { setAuth } from 'store/auth/authSlice';
+import { wait } from 'utils/wait';
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
+});
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const toast = useToast();
-  const auth = useSelector(selectAuth);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const register = useCallback(() => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
 
-    setLoading(true);
+  const { getFieldProps, handleSubmit, touched, errors, isSubmitting } = useFormik({
+    initialValues: { email: '', password: '' },
+    validationSchema,
+    onSubmit: async form => {
+      try {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
 
-    timeoutRef.current = setTimeout(() => {
-      setLoading(false);
-      dispatch(setAuth({ id: Date.now().toString(), email, password }));
-      toast({
-        status: 'success',
-        title: 'Login Success',
-        description: 'Login Success',
-        onCloseComplete: () => {
-          navigate('/');
-        },
-      });
-    }, 2000);
-  }, [dispatch, email, navigate, password, toast]);
-
-  const handleChangeEmail = useCallback((e: BaseSyntheticEvent) => {
-    setEmail(e.target.value);
-  }, []);
-
-  const handleChangePassword = useCallback((e: BaseSyntheticEvent) => {
-    setPassword(e.target.value);
-  }, []);
+        await wait(2000).then(() => {
+          dispatch(setAuth({ ...form, id: Date.now().toString() }));
+          toast({
+            status: 'success',
+            title: 'Login Success',
+            description: 'Login Success',
+            duration: 1000,
+            isClosable: true,
+            onCloseComplete: () => {
+              navigate('/');
+            },
+          });
+        });
+      } catch (e) {
+        toast({
+          status: 'error',
+          title: 'Login Error',
+          description: (e as Record<string, any>).message,
+        });
+      }
+    },
+  });
 
   return (
-    <Card as="form" w={['100%', 500]}>
-      <CardHeader>Login or Register?</CardHeader>
-      <CardBody>
-        <FormInput isRequired type="email" label="Email" value={email} onChange={handleChangeEmail} />
-        <FormInput isRequired type="password" label="Password" value={password} onChange={handleChangePassword} />
-      </CardBody>
-      <CardFooter>
-        <Button isDisabled={auth.user.id} isLoading={loading} onClick={register}>
-          Register
-        </Button>
-      </CardFooter>
-    </Card>
+    <form onSubmit={handleSubmit}>
+      <Card w={['100%', 500]} shadow="lg" border="1px solid rgba(0,0,0,0.125)" borderRadius={16}>
+        <CardBody pb={0}>
+          <FormInput
+            isRequired
+            isInvalid={!!errors.email && touched.email}
+            type="email"
+            label="Email"
+            errorMessage={errors.email}
+            {...getFieldProps('email')}
+          />
+          <FormInput
+            isRequired
+            isInvalid={!!errors.password && touched.password}
+            type="password"
+            label="Password"
+            errorMessage={errors.password}
+            {...getFieldProps('password')}
+          />
+        </CardBody>
+        <CardFooter>
+          <Button
+            type="submit"
+            backgroundColor="primary.yellow"
+            color="primary.green"
+            isDisabled={!!Object.values(errors).length}
+            isLoading={isSubmitting}
+            sx={{ px: 10, py: 2.5, fontSize: 18, lineHeight: 1.5 }}
+            _hover={{ color: 'primary.yellow', backgroundColor: 'primary.green' }}
+          >
+            Login
+          </Button>
+        </CardFooter>
+      </Card>
+    </form>
   );
 }
 

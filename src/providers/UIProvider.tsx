@@ -39,6 +39,7 @@ const theme = extendTheme({
         fontWeight: 400,
         lineHeight: 1.25,
         textTransform: 'capitalize',
+        borderRadius: 16,
       },
       defaultProps: {
         fontSize: 18,
