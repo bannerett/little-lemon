@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
 import { Box } from '@chakra-ui/react';
 import NavbarMD from 'components/Navbar/NavbarMD';
 import NavbarSM from 'components/Navbar/NavbarSM';
 import { HeaderLink } from 'types/HeaderLink';
+import { selectAuth } from 'store/auth/authSlice';
 
 const navLinks: HeaderLink[] = [
   { id: 'home', props: { to: '/', label: 'Home' } },
@@ -13,10 +15,11 @@ const navLinks: HeaderLink[] = [
 ];
 
 function Navbar() {
+  const { user } = useSelector(selectAuth);
   return (
-    <Box as="header" height="100%" py={[4, 4, 4, 8]} px={{ md: 8 }}>
-      <NavbarMD links={navLinks} />
-      <NavbarSM links={navLinks} />
+    <Box as="header" height="100%" py={[4, 4, 4, 8]} px={{ md: 8 }} shadow="base">
+      <NavbarMD links={navLinks} isAuthenticated={!!user.id} />
+      <NavbarSM links={navLinks} isAuthenticated={!!user.id} />
     </Box>
   );
 }

@@ -1,28 +1,46 @@
 import NavLink from 'components/Navbar/NavLink';
-import { HStack, Image } from '@chakra-ui/react';
+import { Button, HStack, Image } from '@chakra-ui/react';
 import { HeaderLink } from 'types/HeaderLink';
 import brandLogo from 'assets/img/Asset 16@4x.png';
+import store from 'store/store';
+import { resetAuth } from 'store/auth/authSlice';
 
-const renderNavLinks = (links: HeaderLink[]) =>
-  links.map(({ id, props: { to, label } }) => (
-    <NavLink
-      key={id}
-      to={to}
-      id={`header-link-${id}`}
-      fontSize={{ md: 18, lg: 20 }}
-      fontWeight={500}
-      lineHeight={1.25}
-      noOfLines={1}
-    >
-      {label}
-    </NavLink>
-  ));
+const renderNavLinks = (links: HeaderLink[], isAuthenticated: boolean) =>
+  links.map(({ id, props: { to, label } }) => {
+    if (isAuthenticated && id === 'login') {
+      return (
+        <Button
+          key={id}
+          onClick={() => {
+            store.dispatch(resetAuth());
+          }}
+        >
+          Logout
+        </Button>
+      );
+    }
+
+    return (
+      <NavLink
+        key={id}
+        to={to}
+        id={`header-link-${id}`}
+        fontSize={{ md: 18, lg: 20 }}
+        fontWeight={500}
+        lineHeight={1.25}
+        noOfLines={1}
+      >
+        {label}
+      </NavLink>
+    );
+  });
 
 interface NavbarMDProps {
   links: HeaderLink[];
+  isAuthenticated: boolean;
 }
 
-function NavbarMd({ links }: NavbarMDProps) {
+function NavbarMd({ links, isAuthenticated }: NavbarMDProps) {
   return (
     <HStack
       as="nav"
@@ -36,7 +54,7 @@ function NavbarMd({ links }: NavbarMDProps) {
         <Image src={brandLogo} />
       </NavLink>
 
-      <HStack spacing={{ md: 2, lg: 4 }}>{renderNavLinks(links)}</HStack>
+      <HStack spacing={{ md: 2, lg: 4 }}>{renderNavLinks(links, isAuthenticated)}</HStack>
     </HStack>
   );
 }
