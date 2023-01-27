@@ -5,7 +5,6 @@ import { Minus, Plus } from 'phosphor-react';
 
 const DishCard = memo<SpecialDish>(
   ({ id, imgSrc, heading, price, description, icon, label, onAdd, onRemove, count }) => {
-    console.log('render', count);
     return (
       <Card rounded={16} overflow="hidden">
         <Image src={imgSrc} objectFit="cover" h={186} />
