@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
-import { MouseEventHandler, useCallback, useState } from 'react';
+import { MouseEventHandler, useCallback } from 'react';
 import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
 import { Bicycle } from 'phosphor-react';
-import DishCard from 'components/DishCard';
+import DishCard from 'components/DishCard/DishCard';
 import NavLink from 'components/Navbar/NavLink';
 import { selectMenu } from 'store/menu/menuSlice';
 import { useAppDispatch } from 'store/store';
@@ -13,8 +13,6 @@ function Specials() {
   const dispatch = useAppDispatch();
   const specials = useSelector(selectMenu);
   const order = useSelector(selectOrder);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setOrder] = useState<null | Record<string, number>>(null);
 
   const handleAdd = useCallback<MouseEventHandler<HTMLButtonElement>>(
     ({
@@ -23,7 +21,6 @@ function Specials() {
       },
     }) => {
       if (id) {
-        setOrder(prev => ({ ...prev, [id]: (prev?.[id] ?? 0) + 1 }));
         dispatch(addOrder(id));
       }
     },
@@ -37,10 +34,6 @@ function Specials() {
       },
     }) => {
       if (id) {
-        // setOrder(prev => ({
-        //   ...prev,
-        //   [id]: (prev?.[id] ?? 0) - 1,
-        // }));
         dispatch(removeOrder(id));
       }
     },

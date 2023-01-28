@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: (
-          <Suspense fallback={<Progress />}>
+          <Suspense fallback={<Progress isIndeterminate />}>
             <About />
           </Suspense>
         ),
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       {
         path: '/menu',
         element: (
-          <Suspense fallback={<Progress />}>
+          <Suspense fallback={<Progress isIndeterminate />}>
             <Menu />
           </Suspense>
         ),
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: '/reservations',
         element: (
-          <Suspense fallback={<Progress />}>
+          <Suspense fallback={<Progress isIndeterminate />}>
             <Reservations />
           </Suspense>
         ),
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       {
         path: '/order-online',
         element: (
-          <Suspense fallback={<Progress />}>
+          <Suspense fallback={<Progress isIndeterminate />}>
             <OrderOnline />
           </Suspense>
         ),
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: (
-          <Suspense fallback={<Progress />}>
+          <Suspense fallback={<Progress isIndeterminate />}>
             <Login />
           </Suspense>
         ),

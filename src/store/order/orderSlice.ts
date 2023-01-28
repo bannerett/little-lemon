@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import { SpecialDish } from 'types/SpecialDish';
+import { RootState } from 'store/store';
 
 const initialState: Record<'value', any> = {
   value: {},
@@ -23,7 +23,7 @@ const orderSlice = createSlice({
   },
 });
 
-export const selectOrder = (state: any) => state.order.value;
+export const selectOrder = (state: RootState) => state.order.value;
 
 export const { addOrder, removeOrder } = orderSlice.actions;
 export default orderSlice.reducer;
