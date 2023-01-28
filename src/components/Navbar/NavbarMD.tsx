@@ -2,19 +2,12 @@ import NavLink from 'components/Navbar/NavLink';
 import { Button, HStack, Image } from '@chakra-ui/react';
 import { HeaderLink } from 'types/HeaderLink';
 import brandLogo from 'assets/img/Asset 16@4x.png';
-import store from 'store/store';
-import { resetAuth } from 'store/auth/authSlice';
 
-const renderNavLinks = (links: HeaderLink[], isAuthenticated: boolean) =>
-  links.map(({ id, props: { to, label } }) => {
-    if (isAuthenticated && id === 'login') {
+const renderNavLinks = (links: HeaderLink[]) =>
+  links.map(({ id, props: { to, label, type, action, disabled } }) => {
+    if (type === 'button') {
       return (
-        <Button
-          key={id}
-          onClick={() => {
-            store.dispatch(resetAuth());
-          }}
-        >
+        <Button key={id} type={type} onClick={action} isDisabled={disabled}>
           Logout
         </Button>
       );
@@ -25,10 +18,15 @@ const renderNavLinks = (links: HeaderLink[], isAuthenticated: boolean) =>
         key={id}
         to={to}
         id={`header-link-${id}`}
-        fontSize={{ md: 18, lg: 20 }}
-        fontWeight={500}
-        lineHeight={1.25}
         noOfLines={1}
+        sx={{
+          fontSize: { md: 18, lg: 20 },
+          fontWeight: 500,
+          lineHeight: 1.25,
+          pointerEvents: disabled ? 'none' : 'all',
+          color: disabled ? 'grey' : 'inherit',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        }}
       >
         {label}
       </NavLink>
@@ -37,10 +35,9 @@ const renderNavLinks = (links: HeaderLink[], isAuthenticated: boolean) =>
 
 interface NavbarMDProps {
   links: HeaderLink[];
-  isAuthenticated: boolean;
 }
 
-function NavbarMd({ links, isAuthenticated }: NavbarMDProps) {
+function NavbarMd({ links }: NavbarMDProps) {
   return (
     <HStack
       as="nav"
@@ -54,7 +51,7 @@ function NavbarMd({ links, isAuthenticated }: NavbarMDProps) {
         <Image src={brandLogo} />
       </NavLink>
 
-      <HStack spacing={{ md: 2, lg: 4 }}>{renderNavLinks(links, isAuthenticated)}</HStack>
+      <HStack spacing={{ md: 2, lg: 4 }}>{renderNavLinks(links)}</HStack>
     </HStack>
   );
 }

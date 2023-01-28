@@ -5,13 +5,18 @@ import * as Yup from 'yup';
 import { Button, Card, CardBody, CardFooter, useToast } from '@chakra-ui/react';
 import FormInput from 'components/FormInput';
 import { useAppDispatch } from 'store/store';
-import { setAuth } from 'store/auth/authSlice';
+import { authLogin } from 'store/auth/authSlice';
 import { wait } from 'utils/wait';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
   password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
 });
+
+interface Login {
+  email: string;
+  password: string;
+}
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -20,7 +25,7 @@ function LoginForm() {
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { getFieldProps, handleSubmit, touched, errors, isSubmitting, isValid } = useFormik({
+  const { getFieldProps, handleSubmit, touched, errors, isSubmitting, isValid } = useFormik<Login>({
     initialValues: { email: '', password: '' },
     validationSchema,
     onSubmit: async form => {
@@ -30,7 +35,7 @@ function LoginForm() {
         }
 
         await wait(2000).then(() => {
-          dispatch(setAuth({ ...form, id: Date.now().toString() }));
+          dispatch(authLogin({ ...form, id: form.email }));
           toast({
             status: 'success',
             title: 'Login Success',
@@ -53,8 +58,8 @@ function LoginForm() {
   });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Card w={['100%', 500]} shadow="lg" border="1px solid rgba(0,0,0,0.125)" borderRadius={16}>
+    <form onSubmit={handleSubmit} style={{ width: '100%', margin: '0 16px' }}>
+      <Card w={['100%', 500]} shadow="lg" border="1px solid rgba(0,0,0,0.125)" borderRadius={16} mx="auto">
         <CardBody pb={0}>
           <FormInput
             isRequired

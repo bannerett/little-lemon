@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/comma-dangle': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/indent': 0,
     '@typescript-eslint/member-delimiter-style': 0,
     '@typescript-eslint/no-misused-promises': 0,
     '@typescript-eslint/semi': [2, 'always'],
