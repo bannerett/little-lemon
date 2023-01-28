@@ -4,12 +4,17 @@ import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
 import { Bicycle } from 'phosphor-react';
 import DishCard from 'components/DishCard';
 import NavLink from 'components/Navbar/NavLink';
-import { contentStyles } from 'constants/contentStyles';
 import { selectMenu } from 'store/menu/menuSlice';
+import { useAppDispatch } from 'store/store';
+import { contentStyles } from 'constants/contentStyles';
+import { addOrder, removeOrder, selectOrder } from 'store/order/orderSlice';
 
 function Specials() {
+  const dispatch = useAppDispatch();
   const specials = useSelector(selectMenu);
-  const [order, setOrder] = useState<null | Record<string, number>>(null);
+  const order = useSelector(selectOrder);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setOrder] = useState<null | Record<string, number>>(null);
 
   const handleAdd = useCallback<MouseEventHandler<HTMLButtonElement>>(
     ({
@@ -19,9 +24,10 @@ function Specials() {
     }) => {
       if (id) {
         setOrder(prev => ({ ...prev, [id]: (prev?.[id] ?? 0) + 1 }));
+        dispatch(addOrder(id));
       }
     },
-    []
+    [dispatch]
   );
 
   const handleRemove = useCallback<MouseEventHandler<HTMLButtonElement>>(
@@ -31,13 +37,14 @@ function Specials() {
       },
     }) => {
       if (id) {
-        setOrder(prev => ({
-          ...prev,
-          [id]: (prev?.[id] ?? 0) - 1,
-        }));
+        // setOrder(prev => ({
+        //   ...prev,
+        //   [id]: (prev?.[id] ?? 0) - 1,
+        // }));
+        dispatch(removeOrder(id));
       }
     },
-    []
+    [dispatch]
   );
 
   return (
