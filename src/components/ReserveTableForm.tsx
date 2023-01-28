@@ -18,21 +18,14 @@ import {
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 import FormInput from 'components/FormInput';
-import { selectAuth } from 'store/auth/authSlice';
+import { selectUserEmail } from 'store/auth/authSlice';
 import { wait } from 'utils/wait';
+import { Booking } from 'types/Booking';
+import { useAppDispatch } from 'store/store';
+import { reserveTable } from 'store/reservations/reservationsSlice';
 
 dayjs.extend(localizedFormat);
 dayjs.extend(isBetween);
-
-interface Booking {
-  username: string;
-  date: string;
-  time: string;
-  persons: number;
-  contactType: 'email' | 'phone';
-  contact: string;
-  additionalInfo?: string;
-}
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Name is required').min(2, 'Too Short'),
@@ -74,12 +67,15 @@ const validationSchema = Yup.object().shape({
   additionalInfo: Yup.string(),
 });
 
+type Form = Omit<Booking, 'id'>;
+
 function ReserveTableForm() {
-  const { user } = useSelector(selectAuth);
+  const dispatch = useAppDispatch();
+  const userEmail = useSelector(selectUserEmail);
   const toast = useToast();
 
   const { getFieldProps, setFieldValue, handleSubmit, values, touched, errors, isSubmitting, isValid } =
-    useFormik<Booking>({
+    useFormik<Form>({
       initialValues: {
         username: '',
         date: '',
@@ -92,8 +88,13 @@ function ReserveTableForm() {
       validationSchema,
       onSubmit: async form => {
         try {
-          await wait(3000);
+          await wait(1000);
 
+          if (!userEmail) {
+            throw new Error('User is not defined');
+          }
+
+          dispatch(reserveTable({ ...form, id: Date.now(), userId: userEmail }));
           const date = dayjs(form.date.concat(form.time));
           toast({
             status: 'success',
@@ -112,10 +113,10 @@ function ReserveTableForm() {
     });
 
   useEffect(() => {
-    if (user.email && values.contactType === 'email' && !touched.contact) {
-      void setFieldValue('contact', user.email);
+    if (userEmail && values.contactType === 'email' && !touched.contact) {
+      void setFieldValue('contact', userEmail);
     }
-  }, [setFieldValue, touched.contact, user, values.contactType]);
+  }, [setFieldValue, touched.contact, userEmail, values.contactType]);
 
   const handleContactTypeChange = async (contactType: string) => {
     await setFieldValue('contactType', contactType, true);
@@ -123,7 +124,6 @@ function ReserveTableForm() {
   };
 
   const getProgress = () => {
-    console.log('call');
     const partWidthPercent = 100 / (Object.keys(values).length - 2);
 
     return Object.entries(values)
@@ -217,7 +217,7 @@ function ReserveTableForm() {
             isDisabled={!isValid}
             isLoading={isSubmitting}
           >
-            Place Order
+            Reserve
           </Button>
         </CardFooter>
       </Card>

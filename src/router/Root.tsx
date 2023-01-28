@@ -1,18 +1,35 @@
+import { useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container } from '@chakra-ui/react';
 import Navbar from 'components/Navbar/Navbar';
-import { useEffect } from 'react';
 import { useAppDispatch } from 'store/store';
-import { setAuth } from 'store/auth/authSlice';
+import { authLogin } from 'store/auth/authSlice';
+import { setReservations } from 'store/reservations/reservationsSlice';
+import { UserAuth } from 'types/UserAuth';
 
 function Root() {
   const dispatch = useAppDispatch();
+
+  const handleLogin = useCallback(
+    (u: UserAuth) => {
+      dispatch(authLogin(u));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     const user = localStorage.getItem('user');
 
     if (user && JSON.parse(user)?.id) {
-      dispatch(setAuth(JSON.parse(user)));
+      handleLogin(JSON.parse(user));
+    }
+  }, [dispatch, handleLogin]);
+
+  useEffect(() => {
+    const reservations = localStorage.getItem('reservations');
+
+    if (reservations && JSON.parse(reservations)) {
+      dispatch(setReservations(JSON.parse(reservations)));
     }
   }, [dispatch]);
 
