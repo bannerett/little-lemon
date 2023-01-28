@@ -1,48 +1,14 @@
+import { useSelector } from 'react-redux';
 import { MouseEventHandler, useCallback, useState } from 'react';
 import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
 import { Bicycle } from 'phosphor-react';
 import DishCard from 'components/DishCard';
 import NavLink from 'components/Navbar/NavLink';
 import { contentStyles } from 'constants/contentStyles';
-import { SpecialDish } from 'types/SpecialDish';
-import greekSalad from 'assets/img/specials/greek-salad.jpg';
-import bruchetta from 'assets/img/specials/bruchetta.jpg';
-import lemonDessert from 'assets/img/specials/lemon-dessert.jpg';
-
-const specials: SpecialDish[] = [
-  {
-    id: 'greek-salad',
-    name: 'greek-salad',
-    imgSrc: greekSalad,
-    heading: 'Greek Salad',
-    price: 12.99,
-    description:
-      'The famous greek salad of crispy lettuce, peppers, olives and our Chicago style feta cheese, garnished with crunchy garlic and rosemary croutons. ',
-    label: 'Order a delivery',
-  },
-  {
-    id: 'bruchetta',
-    name: 'bruchetta',
-    imgSrc: bruchetta,
-    heading: 'Bruchetta',
-    price: 5.99,
-    description:
-      'Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil. ',
-    label: 'Order a delivery',
-  },
-  {
-    id: 'lemon-dessert',
-    name: 'lemon-dessert',
-    imgSrc: lemonDessert,
-    heading: 'Lemon Dessert',
-    price: 5.0,
-    description:
-      'This comes straight from grandma’s recipe book, every last ingredient has been sourced and is as authentic as can be imagined.',
-    label: 'Order a delivery',
-  },
-];
+import { selectMenu } from 'store/menu/menuSlice';
 
 function Specials() {
+  const specials = useSelector(selectMenu);
   const [order, setOrder] = useState<null | Record<string, number>>(null);
 
   const handleAdd = useCallback<MouseEventHandler<HTMLButtonElement>>(

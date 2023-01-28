@@ -43,7 +43,6 @@ export const selectReservations =
   (userId?: string) =>
   (state: RootState): Record<number, Booking> | undefined => {
     if (userId) {
-      console.log('state', state.booking);
       return state.booking.value[userId];
     }
   };
