@@ -16,7 +16,7 @@ function ReservationsList({ toggleCancelModalOpen }: { toggleCancelModalOpen: (r
   };
 
   return (
-    <Box w="100%" whiteSpace="nowrap" overflow="hidden" overflowX="scroll" mb={8}>
+    <Box w="100%" whiteSpace={['normal', 'nowrap']} overflow="hidden" overflowX="scroll">
       {reservations &&
         Object.values(reservations).map(({ id, username, date: resDate, time, persons }) => {
           const date = dayjs(resDate.concat(time));
@@ -28,8 +28,10 @@ function ReservationsList({ toggleCancelModalOpen }: { toggleCancelModalOpen: (r
               borderRadius={16}
               mr={4}
               shadow={0}
-              color="primary.yellow"
-              backgroundColor="primary.green"
+              color="primary.green"
+              backgroundColor="primary.yellow"
+              w={['100%', 'fit-content']}
+              mb={[4, 0]}
             >
               <CardHeader pb={2}>
                 <HStack justifyContent="space-between">

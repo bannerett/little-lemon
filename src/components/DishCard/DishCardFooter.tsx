@@ -1,6 +1,6 @@
 import { MouseEvent, ReactElement } from 'react';
 import { Box, Button, CardFooter, Flex } from '@chakra-ui/react';
-import { Minus, Plus } from 'phosphor-react';
+import { Bicycle, Minus, Plus } from 'phosphor-react';
 
 interface DishCardFooterProps {
   id: string;
@@ -15,7 +15,13 @@ function DishCardFooter({ id, label, count, icon, handleAdd, handleRemove }: Dis
   return (
     <CardFooter>
       {!count ? (
-        <Button variant="link" data-id={id} rightIcon={icon} onClick={handleAdd} fontWeight={700}>
+        <Button
+          variant="link"
+          data-id={id}
+          rightIcon={icon ?? <Bicycle size={20} />}
+          onClick={handleAdd}
+          fontWeight={700}
+        >
           {label}
         </Button>
       ) : (

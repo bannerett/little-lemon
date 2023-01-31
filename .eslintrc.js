@@ -32,6 +32,7 @@ module.exports = {
     'jsx-quotes': [1, 'prefer-double'],
     'max-len': [2, 120, { ignoreComments: true, ignoreUrls: true, ignoreStrings: true, ignoreTemplateLiterals: true }],
     'multiline-ternary': 0,
+    'no-trailing-spaces': 1,
     'react-hooks/exhaustive-deps': 1,
     'react-hooks/rules-of-hooks': 2,
     'react/display-name': 0,
@@ -44,5 +45,6 @@ module.exports = {
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,
     semi: [2, 'always'],
+    'space-in-parens': 1,
   },
 };

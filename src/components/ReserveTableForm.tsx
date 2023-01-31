@@ -13,6 +13,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Text,
   Textarea,
   useToast,
 } from '@chakra-ui/react';
@@ -43,6 +44,8 @@ const validationSchema = Yup.object().shape({
         const [hh, mm] = time.split(':');
         const date = dayjs(selectedDate).set('hours', Number(hh)).set('minutes', Number(mm));
 
+        if (date.isBefore(dayjs())) return false;
+
         if (date.day() > 4 && date.day() < 7) {
           return date.hour() >= 10 && date.hour() <= 22;
         }
@@ -59,10 +62,10 @@ const validationSchema = Yup.object().shape({
 
       return this.parent.contactType === 'email' ? /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(contact) : true;
     })
-    .test('contactPhoneTest', 'Incorrect phone number. Ex: 123-456-7890', function (contact) {
+    .test('contactPhoneTest', 'Incorrect phone number. Ex: 123 456 7890', function (contact) {
       if (!contact) return false;
 
-      return this.parent.contactType === 'phone' ? /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(contact) : true;
+      return this.parent.contactType === 'phone' ? /^[0-9]{3}[0-9]{3}[0-9]{4}$/.test(contact) : true;
     }),
   additionalInfo: Yup.string(),
 });
@@ -137,7 +140,7 @@ function ReserveTableForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card borderRadius={16} border="1px solid rgba(0,0,0,0.125)" overflow="hidden">
+      <Card borderRadius={16} border="1px solid rgba(0,0,0,0.125)" overflow="hidden" maxW={600} mx="auto">
         <Box
           sx={{
             position: 'relative',
@@ -200,6 +203,9 @@ function ReserveTableForm() {
             errorMessage={errors.contact}
             {...getFieldProps('contact')}
           />
+          <Text mb={1.5} fontSize="md">
+            Additional info
+          </Text>
           <Textarea fontSize={18} {...getFieldProps('additionalInfo')} />
         </CardBody>
         <CardFooter>

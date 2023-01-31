@@ -1,41 +1,15 @@
-import { Helmet } from 'react-helmet-async';
 import { Box, Flex, Heading, Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
 import AnimatePage from 'components/AnimatePage';
+import PageDescription from 'components/PageDescription';
 import { contentStyles } from 'constants/contentStyles';
+import Section from 'components/Section';
 
 function About() {
   return (
     <AnimatePage>
-      <Helmet>
-        <title>Little Lemon - About</title>
-      </Helmet>
+      <PageDescription heading="About" title="About" description="About description" />
 
-      <Box backgroundColor="primary.green" color="white">
-        <Box as="section" maxW={900} mx="auto" py={8} {...contentStyles}>
-          <Heading color="primary.yellow" size={['3xl']} mb={4} lineHeight={10}>
-            Little Lemon
-          </Heading>
-          <Text>
-            Is a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur commodi, culpa id, illum
-              impedit ipsam iste maxime omnis quam, repellat sit sunt ullam? Doloremque neque qui rerum sunt
-              voluptatibus!
-            </span>
-            <span>
-              Ab aut delectus dolorem ea eligendi eveniet incidunt ipsa, iusto laborum libero natus nihil omnis
-              perspiciatis sed totam. A atque corporis dicta dolorem eius laboriosam maxime natus necessitatibus quod
-              vero?
-            </span>
-            <span>
-              Ab ad aliquam assumenda at dignissimos dolor, dolore doloremque ducimus eum harum hic itaque molestias
-              perferendis praesentium quae quam quas quis quisquam ratione rem rerum saepe sapiente unde veniam vero.
-            </span>
-          </Text>
-        </Box>
-      </Box>
-
-      <Box as="section" maxW={900} mx="auto" py={8} {...contentStyles} aria-label="Opening hours">
+      <Section aria-label="Opening hours">
         <Flex columnGap={4} rowGap={4} direction={['column', 'row']}>
           <Box w={['100%', '30%']} mt={1}>
             <Heading size="xl" noOfLines={1}>
@@ -63,9 +37,9 @@ function About() {
             </TableContainer>
           </Box>
         </Flex>
-      </Box>
+      </Section>
 
-      <Box as="section" maxW={900} mx="auto" py={8} {...contentStyles} aria-label="Location">
+      <Section aria-label="Location">
         <Flex columnGap={4} rowGap={4} direction={['column', 'row']}>
           <Box w={['100%', '30%']}>
             <Heading size="xl" noOfLines={1}>
@@ -76,7 +50,7 @@ function About() {
             <Text>Chicago, US</Text>
           </Box>
         </Flex>
-      </Box>
+      </Section>
 
       <Box as="section" maxW={900} mx="auto" py={8} {...contentStyles} aria-label="Contacts">
         <Flex columnGap={4} rowGap={4} direction={['column', 'row']}>

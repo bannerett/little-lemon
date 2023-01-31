@@ -1,44 +1,14 @@
 import { useSelector } from 'react-redux';
-import { MouseEventHandler, useCallback } from 'react';
 import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
-import { Bicycle } from 'phosphor-react';
 import DishCard from 'components/DishCard/DishCard';
 import NavLink from 'components/Navbar/NavLink';
 import { selectMenu } from 'store/menu/menuSlice';
-import { useAppDispatch } from 'store/store';
 import { contentStyles } from 'constants/contentStyles';
-import { addOrder, removeOrder, selectOrder } from 'store/order/orderSlice';
+import { selectOrder } from 'store/order/orderSlice';
 
 function Specials() {
-  const dispatch = useAppDispatch();
   const specials = useSelector(selectMenu);
   const order = useSelector(selectOrder);
-
-  const handleAdd = useCallback<MouseEventHandler<HTMLButtonElement>>(
-    ({
-      currentTarget: {
-        dataset: { id },
-      },
-    }) => {
-      if (id) {
-        dispatch(addOrder(id));
-      }
-    },
-    [dispatch]
-  );
-
-  const handleRemove = useCallback<MouseEventHandler<HTMLButtonElement>>(
-    ({
-      currentTarget: {
-        dataset: { id },
-      },
-    }) => {
-      if (id) {
-        dispatch(removeOrder(id));
-      }
-    },
-    [dispatch]
-  );
 
   return (
     <Box as="section" id="specials" backgroundColor="white">
@@ -66,14 +36,7 @@ function Specials() {
 
       <SimpleGrid columns={[1, 3]} columnGap={{ md: 4, lg: 8 }} rowGap={4} {...contentStyles}>
         {specials.map(special => (
-          <DishCard
-            key={special.id}
-            {...special}
-            count={order?.[special.id]}
-            onAdd={handleAdd}
-            onRemove={handleRemove}
-            icon={<Bicycle size={20} />}
-          />
+          <DishCard key={special.id} {...special} count={order?.[special.id]} />
         ))}
       </SimpleGrid>
     </Box>
