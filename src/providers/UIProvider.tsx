@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, ThemeConfig } from '@chakra-ui/react';
 import '@fontsource/karla';
 import '@fontsource/markazi-text';
 
-const theme = extendTheme({
+const theme: ThemeConfig = extendTheme({
   colors: {
     primary: {
       green: '#495E57',
@@ -43,6 +43,11 @@ const theme = extendTheme({
       },
       defaultProps: {
         fontSize: 18,
+      },
+    },
+    Card: {
+      baseStyle: {
+        borderRadius: 16,
       },
     },
     Text: {
