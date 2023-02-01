@@ -7,7 +7,16 @@ const renderNavLinks = (links: HeaderLink[]) =>
   links.map(({ id, props: { to, label, type, action, disabled } }) => {
     if (type === 'button') {
       return (
-        <Button key={id} type={type} onClick={action} isDisabled={disabled}>
+        <Button
+          variant="unstyled"
+          fontSize={18}
+          cursor="pointer"
+          _hover={{ textDecoration: 'underline' }}
+          key={id}
+          type={type}
+          onClick={action}
+          isDisabled={disabled}
+        >
           Logout
         </Button>
       );
