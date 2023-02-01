@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Card, CardBody, CardFooter, useToast } from '@chakra-ui/react';
 import FormInput from 'components/FormInput';
-import { useAppDispatch } from 'store/store';
+import { useAppDispatch } from 'store/store.hooks';
 import { authLogin } from 'store/auth/authSlice';
 import { wait } from 'utils/wait';
 

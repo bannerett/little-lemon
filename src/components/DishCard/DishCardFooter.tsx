@@ -26,11 +26,11 @@ function DishCardFooter({ id, label, count, icon, handleAdd, handleRemove }: Dis
         </Button>
       ) : (
         <Flex alignItems="center" justifyContent="center" fontWeight={700} lineHeight={1.125}>
-          <Button variant="link" data-id={id} onClick={handleRemove}>
+          <Button variant="link" data-id={id} data-label={label} onClick={handleRemove}>
             <Minus />
           </Button>
           <Box px={2}>{count}</Box>
-          <Button variant="link" data-id={id} onClick={handleAdd}>
+          <Button variant="link" data-id={id} data-label={label} onClick={handleAdd}>
             <Plus />
           </Button>
         </Flex>
