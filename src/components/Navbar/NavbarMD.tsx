@@ -1,46 +1,8 @@
 import NavLink from 'components/Navbar/NavLink';
-import { Button, HStack, Image } from '@chakra-ui/react';
+import { HStack, Image } from '@chakra-ui/react';
+import { renderNavLinks } from 'components/Navbar/renderNavLinks';
 import { HeaderLink } from 'types/HeaderLink';
 import brandLogo from 'assets/img/Asset 16@4x.png';
-
-const renderNavLinks = (links: HeaderLink[]) =>
-  links.map(({ id, props: { to, label, type, action, disabled } }) => {
-    if (type === 'button') {
-      return (
-        <Button
-          variant="unstyled"
-          fontSize={18}
-          cursor="pointer"
-          _hover={{ textDecoration: 'underline' }}
-          key={id}
-          type={type}
-          onClick={action}
-          isDisabled={disabled}
-        >
-          Logout
-        </Button>
-      );
-    }
-
-    return (
-      <NavLink
-        key={id}
-        to={to}
-        id={`header-link-${id}`}
-        noOfLines={1}
-        sx={{
-          fontSize: { md: 18, lg: 20 },
-          fontWeight: 500,
-          lineHeight: 1.25,
-          pointerEvents: disabled ? 'none' : 'all',
-          color: disabled ? 'grey' : 'inherit',
-          cursor: disabled ? 'not-allowed' : 'pointer',
-        }}
-      >
-        {label}
-      </NavLink>
-    );
-  });
 
 interface NavbarMDProps {
   links: HeaderLink[];

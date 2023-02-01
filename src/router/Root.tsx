@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container } from '@chakra-ui/react';
 import Navbar from 'components/Navbar/Navbar';
+import Footer from 'components/Footer';
 import { useAppDispatch } from 'store/store.hooks';
 import { authLogin } from 'store/auth/authSlice';
 import { setReservations } from 'store/reservations/reservationsSlice';
@@ -37,6 +38,7 @@ function Root() {
     <Container maxW={1440} px={0}>
       <Navbar />
       <Outlet />
+      <Footer />
     </Container>
   );
 }

@@ -4,7 +4,7 @@ import { Box, ScaleFade } from '@chakra-ui/react';
 function AnimatePage({ children }: { children: ReactNode }) {
   return (
     <ScaleFade
-      initial={{ position: 'absolute', left: '-100%', width: '100%' }}
+      initial={{ position: 'relative', left: '-100%', width: '100%' }}
       animate={{ left: 0, transition: { duration: 0.35 } }}
       exit={{ left: '200%' }}
     >
