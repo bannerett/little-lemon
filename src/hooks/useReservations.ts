@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from 'store/store';
+import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { selectAuth } from 'store/auth/authSlice';
 import { cancelTable } from 'store/reservations/reservationsSlice';
 
 export const useReservations = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector(selectAuth);
+  const { user } = useAppSelector(selectAuth);
 
   const [cancel, setCancel] = useState(false);
   const [cancelReservationId, setCancelReservationId] = useState<null | number>(null);

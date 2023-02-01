@@ -22,7 +22,7 @@ import FormInput from 'components/FormInput';
 import { selectUserEmail } from 'store/auth/authSlice';
 import { wait } from 'utils/wait';
 import { Booking } from 'types/Booking';
-import { useAppDispatch } from 'store/store';
+import { useAppDispatch } from 'store/store.hooks';
 import { reserveTable } from 'store/reservations/reservationsSlice';
 
 dayjs.extend(localizedFormat);

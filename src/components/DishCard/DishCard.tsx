@@ -1,26 +1,26 @@
 import { memo, MouseEvent, useCallback } from 'react';
 import { Card, CardBody, Image } from '@chakra-ui/react';
-import { useAppDispatch } from 'store/store';
-import { SpecialDish } from 'types/SpecialDish';
-import { addOrder, removeOrder } from 'store/order/orderSlice';
 import DishCardHeader from 'components/DishCard/DishCardHeader';
 import DishCardFooter from 'components/DishCard/DishCardFooter';
+import { addOrder, removeOrder } from 'store/order/orderSlice';
+import { useAppDispatch } from 'store/store.hooks';
+import { SpecialDish } from 'types/SpecialDish';
 
 const DishCard = memo<SpecialDish>(({ id, imgSrc, heading, price, description, icon, label, count }) => {
   const dispatch = useAppDispatch();
 
   const handleAdd = useCallback(
     ({ currentTarget: { dataset } }: MouseEvent<HTMLElement>) => {
-      if (dataset.id) dispatch(addOrder(id));
+      if (dataset.id) dispatch(addOrder(dataset.id));
     },
-    [dispatch, id]
+    [dispatch]
   );
 
   const handleRemove = useCallback(
     ({ currentTarget: { dataset } }: MouseEvent<HTMLElement>) => {
-      if (dataset.id) dispatch(removeOrder(id));
+      if (dataset.id) dispatch(removeOrder(dataset.id));
     },
-    [dispatch, id]
+    [dispatch]
   );
 
   return (

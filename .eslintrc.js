@@ -25,7 +25,7 @@ module.exports = {
     '@typescript-eslint/indent': 0,
     '@typescript-eslint/member-delimiter-style': 0,
     '@typescript-eslint/no-misused-promises': 0,
-    '@typescript-eslint/semi': [2, 'always'],
+    '@typescript-eslint/semi': [1, 'always'],
     '@typescript-eslint/space-before-function-paren': 0,
     '@typescript-eslint/strict-boolean-expressions': 0,
     'comma-dangle': [2, { arrays: 'always-multiline', objects: 'always-multiline', imports: 'always-multiline' }],
@@ -44,7 +44,7 @@ module.exports = {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,
-    semi: [2, 'always'],
+    semi: [1, 'always'],
     'space-in-parens': 1,
   },
 };

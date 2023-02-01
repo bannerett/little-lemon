@@ -1,13 +1,18 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'store/store';
+import { selectMenuById } from 'store/menu/menuSlice';
 
-const initialState: Record<'value', any> = {
-  value: {},
-};
+const order = localStorage.getItem('order');
+
+interface OrderState {
+  value: Record<string, number>;
+  isOrder: boolean;
+}
+const initialState = (): Pick<OrderState, 'value'> => (order ? JSON.parse(order) : {});
 
 const orderSlice = createSlice({
   name: 'order',
-  initialState,
+  initialState: { isOrder: false, ...initialState() },
   reducers: {
     addOrder: (state, { payload }: PayloadAction<string>) => {
       if (!state.value[payload]) {
@@ -16,14 +21,43 @@ const orderSlice = createSlice({
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         state.value[payload] += 1;
       }
+      console.log(current(state));
+      localStorage.setItem('order', JSON.stringify(current(state)));
     },
     removeOrder: (state, { payload }: PayloadAction<string>) => {
       state.value[payload] -= 1;
+
+      if (!current(state.value)[payload]) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete state.value[payload];
+      }
+      localStorage.setItem('order', JSON.stringify(current(state)));
+    },
+    deleteOrder: (state, { payload }: PayloadAction<string>) => {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete state.value[payload];
+      localStorage.setItem('order', JSON.stringify(current(state)));
+    },
+    placeOrder: (state, { payload }: PayloadAction<boolean>) => {
+      state.isOrder = payload;
+    },
+    resetOrder: state => {
+      state.isOrder = false;
+      state.value = {};
+      localStorage.setItem('order', JSON.stringify(current(state)));
     },
   },
 });
 
-export const selectOrder = (state: RootState) => state.order.value;
+export const selectOrder = (state: RootState): Record<string, number> => state.order.value;
+export const selectOrderLength = (state: RootState): number => Object.keys(selectOrder(state)).length;
+export const selectOrderCount = (state: RootState): number =>
+  Object.values(selectOrder(state)).reduce((a, b) => a + b, 0);
+export const selectOrderPrice = (state: RootState): number =>
+  Object.entries(state.order.value).reduce((acc, [key, value]) => {
+    return acc + selectMenuById(state)[key].price * value;
+  }, 0);
+export const selectOrderStatus = (state: RootState): boolean => state.order.isOrder;
 
-export const { addOrder, removeOrder } = orderSlice.actions;
+export const { addOrder, removeOrder, deleteOrder, placeOrder, resetOrder } = orderSlice.actions;
 export default orderSlice.reducer;

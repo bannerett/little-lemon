@@ -1,6 +1,8 @@
-import { Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { Avatar, AvatarBadge, Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { List, ShoppingCart } from 'phosphor-react';
 import NavLink from 'components/Navbar/NavLink';
+import { useAppSelector } from 'store/store.hooks';
+import { selectOrderCount } from 'store/order/orderSlice';
 import { HeaderLink } from 'types/HeaderLink';
 import brandLogo from 'assets/img/Asset 16@4x.png';
 
@@ -36,6 +38,8 @@ interface NavbarSMProps {
 }
 
 function NavbarSm({ links }: NavbarSMProps) {
+  const count = useAppSelector(selectOrderCount);
+
   return (
     <Flex as="nav" display={['flex', 'none']} direction="row" justifyContent="space-between" alignItems="center" px={2}>
       <Menu>
@@ -47,7 +51,19 @@ function NavbarSm({ links }: NavbarSMProps) {
         <Image src={brandLogo} maxH="42px" maxW={200} />
       </NavLink>
 
-      <IconButton variant="link" icon={<ShoppingCart size={32} />} aria-label="Shopping Cart" />
+      <NavLink to="/order-online">
+        <Avatar
+          bgColor="#fff"
+          color="primary.green"
+          variant="link"
+          icon={<ShoppingCart size={32} />}
+          aria-label="Shopping Cart"
+        >
+          <AvatarBadge bgColor="primary.yellow" color="primary.green" w="30px" h="30px">
+            {count > 9 ? '9+' : count}
+          </AvatarBadge>
+        </Avatar>
+      </NavLink>
     </Flex>
   );
 }

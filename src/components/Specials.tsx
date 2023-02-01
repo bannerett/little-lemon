@@ -12,7 +12,7 @@ function Specials() {
 
   return (
     <Box as="section" id="specials" backgroundColor="white">
-      <Flex alignItems="center" pb={2} {...contentStyles}>
+      <Flex alignItems="center" pb={2} {...contentStyles} direction={['column', 'row']}>
         <Heading size="3xl" flex={1}>
           This Week&apos;s Specials!
         </Heading>
@@ -28,7 +28,9 @@ function Specials() {
           textAlign="center"
           py={2.5}
           px={10}
+          mt={[4, 0]}
           h={12}
+          w={['100%', 'fit-content']}
         >
           Online Menu
         </NavLink>

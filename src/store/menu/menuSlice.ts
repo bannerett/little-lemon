@@ -5,7 +5,11 @@ import greekSalad from 'assets/img/specials/greek-salad.jpg';
 import bruchetta from 'assets/img/specials/bruchetta.jpg';
 import lemonDessert from 'assets/img/specials/lemon-dessert.jpg';
 
-const initialState: Record<'value', SpecialDish[]> = {
+interface MenuState {
+  value: SpecialDish[];
+}
+
+const initialState: MenuState = {
   value: [
     {
       id: 'greek-salad',
@@ -51,6 +55,9 @@ const menuSlice = createSlice({
 });
 
 export const selectMenu = (state: RootState): SpecialDish[] => state.menu.value;
+
+export const selectMenuById = (state: RootState): Record<string, SpecialDish> =>
+  state.menu.value.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {});
 
 export const { addMenuItem } = menuSlice.actions;
 export default menuSlice.reducer;

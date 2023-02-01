@@ -5,7 +5,7 @@ import NavbarMD from 'components/Navbar/NavbarMD';
 import NavbarSM from 'components/Navbar/NavbarSM';
 import { HeaderLink } from 'types/HeaderLink';
 import { authLogout, selectUserEmail } from 'store/auth/authSlice';
-import { useAppDispatch } from 'store/store';
+import { useAppDispatch } from 'store/store.hooks';
 
 function Navbar() {
   const dispatch = useAppDispatch();
