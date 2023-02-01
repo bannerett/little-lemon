@@ -77,7 +77,7 @@ function ReserveTableForm() {
   const userEmail = useSelector(selectUserEmail);
   const toast = useToast();
 
-  const { getFieldProps, setFieldValue, handleSubmit, values, touched, errors, isSubmitting, isValid } =
+  const { getFieldProps, setFieldValue, handleSubmit, resetForm, values, touched, errors, isSubmitting, isValid } =
     useFormik<Form>({
       initialValues: {
         username: '',
@@ -98,6 +98,8 @@ function ReserveTableForm() {
           }
 
           dispatch(reserveTable({ ...form, id: Date.now(), userId: userEmail }));
+          resetForm();
+
           const date = dayjs(form.date.concat(form.time));
           toast({
             status: 'success',
