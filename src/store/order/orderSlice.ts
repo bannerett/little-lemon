@@ -2,17 +2,18 @@ import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'store/store';
 import { selectMenuById } from 'store/menu/menuSlice';
 
-const order = localStorage.getItem('order');
-
 interface OrderState {
   value: Record<string, number>;
   isOrder: boolean;
 }
-const initialState = (): Pick<OrderState, 'value'> => (order ? JSON.parse(order) : {});
+
+const order = localStorage.getItem('order');
+
+const initialState = (): OrderState => (order ? JSON.parse(order) : { value: {}, isOrder: false });
 
 const orderSlice = createSlice({
   name: 'order',
-  initialState: { isOrder: false, ...initialState() },
+  initialState: initialState(),
   reducers: {
     addOrder: (state, { payload }: PayloadAction<string>) => {
       if (!state.value[payload]) {
@@ -49,7 +50,10 @@ const orderSlice = createSlice({
   },
 });
 
-export const selectOrder = (state: RootState): Record<string, number> => state.order.value;
+export const selectOrder = (state: RootState): Record<string, number> => {
+  console.log(state.order);
+  return state.order.value;
+};
 export const selectOrderLength = (state: RootState): number => Object.keys(selectOrder(state)).length;
 export const selectOrderCount = (state: RootState): number =>
   Object.values(selectOrder(state)).reduce((a, b) => a + b, 0);
