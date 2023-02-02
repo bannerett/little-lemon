@@ -3,7 +3,8 @@ export interface Booking {
   username: string;
   date: string;
   time: string;
-  persons: number;
+  guests: number;
+  occasion: string;
   contactType: 'email' | 'phone';
   contact: string;
   additionalInfo?: string;

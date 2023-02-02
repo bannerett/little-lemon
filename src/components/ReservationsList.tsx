@@ -18,7 +18,7 @@ function ReservationsList({ toggleCancelModalOpen }: { toggleCancelModalOpen: (r
   return (
     <Box w="100%" whiteSpace={['normal', 'nowrap']} overflow="hidden" overflowX="scroll">
       {reservations &&
-        Object.values(reservations).map(({ id, username, date: resDate, time, persons }) => {
+        Object.values(reservations).map(({ id, username, date: resDate, time, guests }) => {
           const date = dayjs(resDate.concat(time));
           return (
             <Card
@@ -47,8 +47,8 @@ function ReservationsList({ toggleCancelModalOpen }: { toggleCancelModalOpen: (r
                   <Box fontWeight={600}>{date.format('L')}</Box>
                   <Box>Time:</Box>
                   <Box fontWeight={600}>{date.format('LT')}</Box>
-                  <Box>Persons:</Box>
-                  <Box fontWeight={600}>{persons}</Box>
+                  <Box>Guests:</Box>
+                  <Box fontWeight={600}>{guests}</Box>
                 </SimpleGrid>
               </CardBody>
             </Card>
