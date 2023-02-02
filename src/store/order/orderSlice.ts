@@ -51,7 +51,6 @@ const orderSlice = createSlice({
 });
 
 export const selectOrder = (state: RootState): Record<string, number> => {
-  console.log(state.order);
   return state.order.value;
 };
 export const selectOrderLength = (state: RootState): number => Object.keys(selectOrder(state)).length;

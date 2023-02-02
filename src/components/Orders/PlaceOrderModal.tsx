@@ -1,11 +1,12 @@
 import React, { FormEvent } from 'react';
-import { Button, Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import { Button, Modal, ModalBody, ModalContent, ModalOverlay, useToast } from '@chakra-ui/react';
 import FormInput from 'components/FormInput';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { placeOrder, resetOrder, selectOrderStatus } from 'store/order/orderSlice';
 
 function PlaceOrderModal() {
   const dispatch = useAppDispatch();
+  const toast = useToast();
   const isOpen = useAppSelector(selectOrderStatus);
 
   const onClose = () => {
@@ -15,6 +16,13 @@ function PlaceOrderModal() {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(resetOrder());
+    toast({
+      status: 'success',
+      title: 'Thank you for your order!',
+      description: 'We are doing all the best to deliver your order as soon as possible.',
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -39,6 +47,9 @@ function PlaceOrderModal() {
             >
               Order
             </Button>
+            <small style={{ fontStyle: 'italic' }}>
+              * This form does not use validation and may be submitted without values for test reasons
+            </small>
           </form>
         </ModalBody>
       </ModalContent>
