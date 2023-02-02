@@ -5,7 +5,7 @@ import Navbar from 'components/Navbar/Navbar';
 import Footer from 'components/Footer';
 import { useAppDispatch } from 'store/store.hooks';
 import { authLogin } from 'store/auth/authSlice';
-import { setReservations } from 'store/reservations/reservationsSlice';
+import { setReservations, setUnregisteredUserReservations } from 'store/reservations/reservationsSlice';
 import { UserAuth } from 'types/UserAuth';
 
 function Root() {
@@ -28,9 +28,14 @@ function Root() {
 
   useEffect(() => {
     const reservations = localStorage.getItem('reservations');
+    const unregisteredUserReservations = localStorage.getItem('unregisteredUserReservations');
 
     if (reservations && JSON.parse(reservations)) {
       dispatch(setReservations(JSON.parse(reservations)));
+    }
+
+    if (unregisteredUserReservations && JSON.parse(unregisteredUserReservations)) {
+      dispatch(setUnregisteredUserReservations(JSON.parse(unregisteredUserReservations)));
     }
   }, [dispatch]);
 

@@ -1,12 +1,12 @@
 import AnimatePage from 'components/AnimatePage';
 import CancelReservationModal from 'components/CancelReservationModal';
-import ReserveTableForm from 'components/ReserveTableForm';
+import BookingForm from 'components/BookingForm';
 import ReservationsList from 'components/ReservationsList';
 import PageDescription from 'components/PageDescription';
 import Section from 'components/Section';
 import { useReservations } from 'hooks/useReservations';
 
-function Reservations() {
+function Bookings() {
   const { openRemoveModal, handleRemoveReservation, handleCloseCancelModal, toggleCancelModalOpen } = useReservations();
 
   return (
@@ -16,7 +16,7 @@ function Reservations() {
       </PageDescription>
 
       <Section>
-        <ReserveTableForm />
+        <BookingForm />
         <CancelReservationModal
           isOpen={openRemoveModal}
           handleCancel={handleCloseCancelModal}
@@ -27,4 +27,4 @@ function Reservations() {
   );
 }
 
-export default Reservations;
+export default Bookings;

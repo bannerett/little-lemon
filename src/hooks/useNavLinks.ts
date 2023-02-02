@@ -23,7 +23,6 @@ export const useNavLinks = (): HeaderLink[] => {
         props: { ...link.props, type: !userEmail ? 'link' : 'button', action: logout },
       };
     }
-    if (link.id === 'reservations') return { ...link, props: { ...link.props, disabled: !userEmail } };
 
     return link;
   });

@@ -1,39 +1,49 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { selectAuth } from 'store/auth/authSlice';
-import { cancelTable } from 'store/reservations/reservationsSlice';
+import {
+  cancelRegisteredUserReservation,
+  cancelUnregisteredUserReservation,
+} from 'store/reservations/reservationsSlice';
 
 export const useReservations = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { user } = useAppSelector(selectAuth);
 
   const [cancel, setCancel] = useState(false);
   const [cancelReservationId, setCancelReservationId] = useState<null | number>(null);
-
-  useEffect(() => {
-    if (!user?.email) {
-      navigate('/');
-    }
-  }, [navigate, user?.email]);
-
-  const handleRemoveReservation = useCallback(() => {
-    if (cancelReservationId && user?.email) {
-      dispatch(cancelTable({ reservationId: cancelReservationId, userId: user?.email }));
-    }
-    setCancel(false);
-    setCancelReservationId(null);
-  }, [cancelReservationId, dispatch, user?.email]);
+  const [unregisteredUserId, setUnregisteredUserId] = useState<undefined | string>(undefined);
 
   const handleCloseCancelModal = useCallback(() => {
     setCancel(false);
     setCancelReservationId(null);
+    setUnregisteredUserId(undefined);
   }, []);
 
-  const toggleCancelModalOpen = useCallback((reservationId: number) => {
+  const handleRemoveReservation = useCallback(() => {
+    if (cancelReservationId) {
+      if (user?.email) {
+        dispatch(
+          cancelRegisteredUserReservation({
+            reservationId: cancelReservationId,
+            userId: user?.email,
+          })
+        );
+      } else {
+        unregisteredUserId &&
+          dispatch(
+            cancelUnregisteredUserReservation({ reservationId: cancelReservationId, userId: unregisteredUserId })
+          );
+      }
+    }
+
+    handleCloseCancelModal();
+  }, [cancelReservationId, dispatch, handleCloseCancelModal, unregisteredUserId, user?.email]);
+
+  const toggleCancelModalOpen = useCallback((reservationId: number, userId?: string) => {
     setCancel(true);
     setCancelReservationId(reservationId);
+    setUnregisteredUserId(userId);
   }, []);
 
   return { openRemoveModal: cancel, handleRemoveReservation, handleCloseCancelModal, toggleCancelModalOpen };
