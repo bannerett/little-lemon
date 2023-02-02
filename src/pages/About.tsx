@@ -1,13 +1,13 @@
 import { Box, Flex, Heading, Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
 import AnimatePage from 'components/AnimatePage';
-import PageDescription from 'components/PageDescription';
 import { contentStyles } from 'constants/contentStyles';
 import Section from 'components/Section';
+import AboutDescription from '../components/AboutDescription';
 
 function About() {
   return (
     <AnimatePage>
-      <PageDescription heading="About" title="About" description="About description" />
+      <AboutDescription />
 
       <Section aria-label="Opening hours">
         <Flex columnGap={4} rowGap={4} direction={['column', 'row']}>

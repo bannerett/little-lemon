@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Container } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import Navbar from 'components/Navbar/Navbar';
 import { useAppDispatch } from 'store/store.hooks';
 import { authLogin } from 'store/auth/authSlice';
@@ -36,7 +36,9 @@ function Root() {
   return (
     <Container maxW={1440} px={0}>
       <Navbar />
-      <Outlet />
+      <Box minH="calc(100vh - 120px)">
+        <Outlet />
+      </Box>
     </Container>
   );
 }
