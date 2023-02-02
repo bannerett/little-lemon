@@ -3,11 +3,7 @@ import { Box, ScaleFade } from '@chakra-ui/react';
 
 function AnimatePage({ children }: { children: ReactNode }) {
   return (
-    <ScaleFade
-      initial={{ position: 'relative', left: '-100%', width: '100%' }}
-      animate={{ left: 0, transition: { duration: 0.45 } }}
-      exit={{ left: '200%' }}
-    >
+    <ScaleFade initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.45 } }} exit={{ opacity: 0 }}>
       <Box as="main" maxW={1440} mx="auto">
         {children}
       </Box>
