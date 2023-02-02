@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Grid, GridItem, Image, SimpleGrid, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, VStack } from '@chakra-ui/react';
 import { FacebookLogo, InstagramLogo, WhatsappLogo } from 'phosphor-react';
 import Section from 'components/Section';
 import { useNavLinks } from 'hooks/useNavLinks';
@@ -12,26 +11,34 @@ function Footer() {
   return (
     <Box id="app-footer" bgColor="primary.yellow">
       <Section>
-        <Grid templateColumns={['repeat(1, 1fr)', 'repeat(4, 1fr)']} gap={8}>
-          <GridItem>
+        <Flex direction={['column', 'row']} wrap={['wrap', 'wrap', 'nowrap']} columnGap={4} rowGap={4}>
+          <Box w={200} minW={200}>
             <Image src={footerLogo} borderRadius={16} objectFit="cover" h="100%" />
-          </GridItem>
-          <GridItem>
-            <VStack fontSize={18}>{renderNavLinks(links)}</VStack>
-          </GridItem>
-          <GridItem>
-            <SimpleGrid columns={2} fontSize={18}>
-              <Box>Address</Box>
-              <Box mb={4}>Main Road, 42, Chicago</Box>
-              <Box>Phone</Box>
-              <Box mb={4}>1234567890</Box>
-              <Box>Email</Box>
-              <Box mb={4}>
-                <a href="mailto:little-lemon@mail.com">Little Lemon</a>
-              </Box>
-            </SimpleGrid>
-          </GridItem>
-          <GridItem>
+          </Box>
+          <Box w="50%">
+            <VStack fontSize={18} alignItems="start" ml={[0, 8]}>
+              {renderNavLinks(links)}
+            </VStack>
+          </Box>
+          <Box w={['100%', '50%', '100%']}>
+            <Flex fontSize={18} columnGap={4} direction="column">
+              <HStack columnGap={4}>
+                <Box w="20%">Address:</Box>
+                <Box mb={4}>Main Road, 42, Chicago</Box>
+              </HStack>
+              <HStack columnGap={4}>
+                <Box w="25%">Phone:</Box>
+                <Box mb={4}>1234567890</Box>
+              </HStack>
+              <HStack columnGap={4}>
+                <Box w="25%">Email:</Box>
+                <Box mb={4}>
+                  <a href="mailto:little-lemon@mail.com">Little Lemon</a>
+                </Box>
+              </HStack>
+            </Flex>
+          </Box>
+          <Box w={['100%', 200]}>
             <VStack fontSize={18}>
               <Box>
                 <FacebookLogo />
@@ -43,8 +50,8 @@ function Footer() {
                 <WhatsappLogo />
               </Box>
             </VStack>
-          </GridItem>
-        </Grid>
+          </Box>
+        </Flex>
       </Section>
     </Box>
   );
