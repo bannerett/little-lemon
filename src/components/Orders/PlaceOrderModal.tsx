@@ -26,7 +26,7 @@ function PlaceOrderModal() {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent borderRadius={16}>
         <ModalBody>
