@@ -9,7 +9,7 @@ function Orders() {
   const order = useSelector(selectOrder, shallowEqual);
 
   return (
-    <SimpleGrid columns={[1, 2, 3]} columnGap={4} rowGap={4}>
+    <SimpleGrid columns={[1, 2, 4]} columnGap={4} rowGap={4}>
       {Object.entries(order)
         .filter(([_, v]) => v)
         .map(([key, value]) => (
