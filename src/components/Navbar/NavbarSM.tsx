@@ -59,9 +59,11 @@ function NavbarSm({ links }: NavbarSMProps) {
           icon={<ShoppingCart size={32} />}
           aria-label="Shopping Cart"
         >
-          <AvatarBadge bgColor="primary.yellow" color="primary.green" w="30px" h="30px">
-            {count > 9 ? '9+' : count}
-          </AvatarBadge>
+          {count > 0 && (
+            <AvatarBadge bgColor="primary.yellow" color="primary.green" w="30px" h="30px">
+              {count > 9 ? '9+' : count}
+            </AvatarBadge>
+          )}
         </Avatar>
       </NavLink>
     </Flex>

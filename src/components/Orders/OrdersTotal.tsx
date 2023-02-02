@@ -10,8 +10,6 @@ function OrdersTotal() {
   const totalPrice = useAppSelector(selectOrderPrice);
   const dishesCount = useAppSelector(selectOrderCount);
 
-  console.log(dishesCount);
-
   const order = () => {
     dispatch(placeOrder(true));
   };
