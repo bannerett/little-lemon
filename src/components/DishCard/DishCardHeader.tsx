@@ -9,7 +9,9 @@ const DishCardHeader = memo<{ heading: string; price: number }>(({ heading, pric
         <Heading fontSize={24} fontWeight={500} noOfLines={1}>
           {heading}
         </Heading>
-        <Box>{numberToFixedUsdCurrency(price)}</Box>
+        <Box color="secondary.orange" fontWeight={600}>
+          {numberToFixedUsdCurrency(price)}
+        </Box>
       </HStack>
     </CardHeader>
   );

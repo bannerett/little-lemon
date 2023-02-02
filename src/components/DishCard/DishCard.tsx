@@ -25,7 +25,7 @@ const DishCard = memo<SpecialDish>(({ id, imgSrc, heading, price, description, i
 
   return (
     <Card rounded={16} overflow="hidden">
-      <Image src={imgSrc} objectFit="cover" h={186} />
+      <Image src={imgSrc} objectFit="cover" h={200} />
       <DishCardHeader heading={heading} price={price} />
       <CardBody lineHeight={1.125}>{description}</CardBody>
       <DishCardFooter
