@@ -6,7 +6,7 @@ import Home from 'pages/Home';
 
 const About = lazy(async () => await import('pages/About'));
 const Menu = lazy(async () => await import('pages/Menu'));
-const Reservations = lazy(async () => await import('pages/Reservations'));
+const Bookings = lazy(async () => await import('pages/Bookings'));
 const OrderOnline = lazy(async () => await import('pages/OrderOnline'));
 const Login = lazy(async () => await import('pages/Login'));
 
@@ -33,10 +33,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/reservations',
+        path: '/bookings',
         element: (
           <Suspense fallback={<Progress isIndeterminate />}>
-            <Reservations />
+            <Bookings />
           </Suspense>
         ),
       },

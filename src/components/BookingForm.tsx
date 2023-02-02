@@ -24,7 +24,7 @@ import { selectUserEmail } from 'store/auth/authSlice';
 import { wait } from 'utils/wait';
 import { Booking } from 'types/Booking';
 import { useAppDispatch } from 'store/store.hooks';
-import { reserveTable } from 'store/reservations/reservationsSlice';
+import { reserveTable, reserveUnregisteredUserTable } from 'store/reservations/reservationsSlice';
 
 dayjs.extend(localizedFormat);
 dayjs.extend(isBetween);
@@ -74,7 +74,10 @@ const validationSchema = Yup.object<Record<keyof Form, Yup.AnySchema>>().shape({
   additionalInfo: Yup.string(),
 });
 
-function ReserveTableForm() {
+const timeOptions = ['17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
+const occasionOptions = ['Birthday', 'Anniversary'];
+
+function BookingForm() {
   const dispatch = useAppDispatch();
   const userEmail = useSelector(selectUserEmail);
   const toast = useToast();
@@ -96,11 +99,9 @@ function ReserveTableForm() {
         try {
           await wait(1000);
 
-          if (!userEmail) {
-            throw new Error('User is not defined');
-          }
+          if (userEmail) dispatch(reserveTable({ ...form, id: Date.now(), userId: userEmail }));
+          else dispatch(reserveUnregisteredUserTable({ ...form, id: Date.now(), userId: form.contact }));
 
-          dispatch(reserveTable({ ...form, id: Date.now(), userId: userEmail }));
           resetForm();
 
           const date = dayjs(form.date.concat(form.time));
@@ -178,12 +179,13 @@ function ReserveTableForm() {
             {...getFieldProps('date')}
           />
           <FormSelect
+            placeholder="Choose time"
+            label="Choose time"
+            options={timeOptions}
             isRequired
             isInvalid={touched.time && !!errors.time}
             isDisabled={!values.date}
-            placeholder="Choose time"
-            label="Choose time"
-            options={['17:00', '18:00', '19:00', '20:00', '21:00', '22:00']}
+            errorMessage={errors.time}
             {...getFieldProps('time')}
           />
           <FormInput
@@ -195,12 +197,12 @@ function ReserveTableForm() {
             {...getFieldProps('guests')}
           />
           <FormSelect
-            isRequired
-            isInvalid={touched.occasion && !!errors.occasion}
             label="Occasion"
             placeholder="Occasion"
+            options={occasionOptions}
+            isRequired
+            isInvalid={touched.occasion && !!errors.occasion}
             errorMessage={errors.occasion}
-            options={['Birthday', 'Anniversary']}
             {...getFieldProps('occasion')}
           />
           <RadioGroup value={values.contactType} onChange={handleContactTypeChange}>
@@ -237,7 +239,7 @@ function ReserveTableForm() {
             isDisabled={!isValid}
             isLoading={isSubmitting}
           >
-            Reserve
+            Make Your reservation
           </Button>
         </CardFooter>
       </Card>
@@ -245,4 +247,4 @@ function ReserveTableForm() {
   );
 }
 
-export default ReserveTableForm;
+export default BookingForm;

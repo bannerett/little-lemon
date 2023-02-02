@@ -1,13 +1,9 @@
-import { Box, Heading, Image, Stack, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import NavLink from 'components/Navbar/NavLink';
-import { useAppSelector } from 'store/store.hooks';
-import { selectAuth } from 'store/auth/authSlice';
 import { contentStyles } from 'constants/contentStyles';
 import heroLogo from 'assets/img/hero-thumb.jpg';
 
 function Hero() {
-  const auth = useAppSelector(selectAuth);
-
   return (
     <Box as="section" id="hero" backgroundColor="primary.green" pt={8} pb={6} mb={[24, 32]}>
       <Stack direction={['column', 'row']} spacing={4} {...contentStyles}>
@@ -25,24 +21,22 @@ function Hero() {
               We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
             </Text>
 
-            <Tooltip label={!auth.user.email ? 'Please log in to reserve a table' : undefined}>
-              <NavLink
-                display="block"
-                variant="button"
-                to={!auth.user.email ? '/' : '/reservations'}
-                color="primary.green"
-                backgroundColor="primary.yellow"
-                borderRadius={16}
-                fontSize={18}
-                fontWeight={400}
-                textAlign="center"
-                py={2.5}
-                px={10}
-                w="fit-content"
-              >
-                Reserve a table
-              </NavLink>
-            </Tooltip>
+            <NavLink
+              display="block"
+              variant="button"
+              to="/bookings"
+              color="primary.green"
+              backgroundColor="primary.yellow"
+              borderRadius={16}
+              fontSize={18}
+              fontWeight={400}
+              textAlign="center"
+              py={2.5}
+              px={10}
+              w="fit-content"
+            >
+              Reserve a table
+            </NavLink>
           </Box>
         </Box>
 
