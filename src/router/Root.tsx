@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box, Container } from '@chakra-ui/react';
 import Navbar from 'components/Navbar/Navbar';
+import Footer from 'components/Footer';
 import { useAppDispatch } from 'store/store.hooks';
 import { authLogin } from 'store/auth/authSlice';
 import { setReservations } from 'store/reservations/reservationsSlice';
@@ -39,6 +40,7 @@ function Root() {
       <Box minH="calc(100vh - 120px)">
         <Outlet />
       </Box>
+      <Footer />
     </Container>
   );
 }
