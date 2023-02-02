@@ -6,7 +6,7 @@ type FormInputProps = InputProps & { type?: string; label?: string; errorMessage
 function FormInput({ label, type, size, isRequired, isInvalid, errorMessage, ...props }: FormInputProps) {
   return (
     <FormControl
-      my={4}
+      my={5}
       isRequired={isRequired}
       isInvalid={isInvalid}
       aria-label={label}

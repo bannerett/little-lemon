@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 import FormInput from 'components/FormInput';
+import FormSelect from 'components/FormSelect';
 import { selectUserEmail } from 'store/auth/authSlice';
 import { wait } from 'utils/wait';
 import { Booking } from 'types/Booking';
@@ -28,7 +29,9 @@ import { reserveTable } from 'store/reservations/reservationsSlice';
 dayjs.extend(localizedFormat);
 dayjs.extend(isBetween);
 
-const validationSchema = Yup.object().shape({
+type Form = Omit<Booking, 'id'>;
+
+const validationSchema = Yup.object<Record<keyof Form, Yup.AnySchema>>().shape({
   username: Yup.string().required('Name is required').min(2, 'Too Short'),
   date: Yup.date().required('Date is required'),
   time: Yup.string()
@@ -53,7 +56,8 @@ const validationSchema = Yup.object().shape({
         return date.hour() >= 10 && date.hour() <= 20;
       }
     ),
-  persons: Yup.number().required('Persons is required').min(1, 'Provide at least one person'),
+  guests: Yup.number().required('Persons is required').min(1, 'Provide at least one person'),
+  occasion: Yup.string().required('Occasion is required'),
   contactType: Yup.string().required('Contact type is required'),
   contact: Yup.string()
     .required('Contact is required')
@@ -70,8 +74,6 @@ const validationSchema = Yup.object().shape({
   additionalInfo: Yup.string(),
 });
 
-type Form = Omit<Booking, 'id'>;
-
 function ReserveTableForm() {
   const dispatch = useAppDispatch();
   const userEmail = useSelector(selectUserEmail);
@@ -83,7 +85,8 @@ function ReserveTableForm() {
         username: '',
         date: '',
         time: '',
-        persons: 1,
+        guests: 1,
+        occasion: '',
         contactType: 'email',
         contact: '',
         additionalInfo: '',
@@ -131,11 +134,14 @@ function ReserveTableForm() {
   const getProgress = () => {
     const partWidthPercent = 100 / (Object.keys(values).length - 2);
 
-    return Object.entries(values)
-      .filter(([k]) => k !== 'contactType' && k !== 'additionalInfo')
-      .reduce((acc, [key, value]) => {
-        return value && !errors[key as keyof typeof errors] ? acc + partWidthPercent : acc;
-      }, 0);
+    return Number(
+      Object.entries(values)
+        .filter(([k]) => k !== 'contactType' && k !== 'additionalInfo')
+        .reduce((acc, [key, value]) => {
+          return value && !errors[key as keyof typeof errors] ? acc + partWidthPercent : acc;
+        }, 0)
+        .toPrecision(3)
+    );
   };
 
   const progress = getProgress();
@@ -157,7 +163,7 @@ function ReserveTableForm() {
           <FormInput
             type="text"
             label="Full name"
-            placeholder="Ex: John Smith"
+            placeholder="Ex: John Lemonseed"
             isRequired
             isInvalid={touched.username && !!errors.username}
             errorMessage={errors.username}
@@ -165,31 +171,37 @@ function ReserveTableForm() {
           />
           <FormInput
             type="date"
-            label="Date"
+            label="Choose date"
             isRequired
             isInvalid={touched.date && !!errors.date}
             errorMessage={errors.date}
             {...getFieldProps('date')}
           />
-          <FormInput
-            type="time"
-            label="Time"
-            min="10:00"
-            max="23:00"
-            placeholder="Mon - Tue, Sun: 10:00am - 20:00pm, Fri-Sat: 10:00am - 10:00pm"
+          <FormSelect
             isRequired
-            isDisabled={!values.date}
             isInvalid={touched.time && !!errors.time}
-            errorMessage={errors.time}
+            isDisabled={!values.date}
+            placeholder="Choose time"
+            label="Choose time"
+            options={['17:00', '18:00', '19:00', '20:00', '21:00', '22:00']}
             {...getFieldProps('time')}
           />
           <FormInput
             type="number"
-            label="Persons"
+            label="Number of guests"
             isRequired
-            isInvalid={touched.persons && !!errors.persons}
-            errorMessage={errors.persons}
-            {...getFieldProps('persons')}
+            isInvalid={touched.guests && !!errors.guests}
+            errorMessage={errors.guests}
+            {...getFieldProps('guests')}
+          />
+          <FormSelect
+            isRequired
+            isInvalid={touched.occasion && !!errors.occasion}
+            label="Occasion"
+            placeholder="Occasion"
+            errorMessage={errors.occasion}
+            options={['Birthday', 'Anniversary']}
+            {...getFieldProps('occasion')}
           />
           <RadioGroup value={values.contactType} onChange={handleContactTypeChange}>
             <Stack direction="row">
