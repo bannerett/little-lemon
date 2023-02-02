@@ -10,6 +10,8 @@ function OrdersTotal() {
   const totalPrice = useAppSelector(selectOrderPrice);
   const dishesCount = useAppSelector(selectOrderCount);
 
+  console.log(dishesCount);
+
   const order = () => {
     dispatch(placeOrder(true));
   };
@@ -27,10 +29,11 @@ function OrdersTotal() {
               variant="unstyled"
               backgroundColor="primary.yellow"
               color="primary.green"
-              _hover={{ textDecoration: 'underline' }}
+              _hover={{ textDecoration: dishesCount ? 'underline' : 'none' }}
               px={8}
               fontSize={18}
               onClick={order}
+              isDisabled={!dishesCount}
             >
               Order
             </Button>
